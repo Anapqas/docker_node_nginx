@@ -27,6 +27,17 @@ services:
     networks:
       - node-network
 
+  nginx:
+    build: 
+      context: ./nginx
+      dockerfile: Dockerfile.prod
+    image: anaanderi/nginx:prod
+    container_name: nginx
+    networks: 
+      - node-network
+    ports: 
+      - "8080:80"
+
 networks:
   node-network:
     driver: bridge
