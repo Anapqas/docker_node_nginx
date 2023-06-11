@@ -10,14 +10,44 @@ const config = {
 const mysql = require('mysql');
 const connection = mysql.createConnection(config);
 
-const sql = `INSERT INTO people(name) values('Ana')`
+const sql = `INSERT INTO people(name) values('Giovanna')`
 connection.query(sql)
+
+getPeople = function () {
+    return new Promise(function (resolve, reject) {
+        const people = "select distinct name from people;"
+        connection.query(
+            people,
+            function (err, rows) {
+                if (rows === undefined) {
+                    reject(new Error("Error rows is undefined"));
+                } else {
+                    resolve(rows);
+                }
+            }
+        )
+    }
+    )
+}
+
+getPeople()
+    .then(function (results) {
+        app.get('/', (req, res) => {
+            html = '<h1>Full Cyclee!</h1>'
+            html += '<h2>'+results.length+' pessoas</h2>'
+            html += "<ul>"
+          for (var i in results) html += "<li>" + results[i].name + "</li>";
+          html += "</ul>"
+            res.send(html)
+        })
+    })
+    .catch(function (err) {
+        console.log("Promise rejection error: " + err);
+    })
 connection.end()
 
-app.get('/', (req,res)=> {
-    res.send('<h1>Full Cycle</h1>')
-})
 
 app.listen(port, () => {
-    console.log('Rodando na porta: '+port)
+    console.log('Rodando na porta: ' + port)
 })
+
