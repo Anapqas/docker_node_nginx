@@ -3,6 +3,7 @@ services:
   app:
     build: 
       context: node
+      dockerfile: Dockerfile.prod
     container_name: app
     networks:
       - node-network
@@ -11,21 +12,27 @@ services:
     tty: true
     ports:
       - "3000:3000"
+    depends_on:
+      - banco
 
 
-  db:
-    image: mysql:5.7
+  banco:
+    build: 
+      context: ./banco
+      dockerfile: Dockerfile.prod
+    image: anaanderi/create-db
     command: --innodb-use-native-aio=0
-    container_name: db
+    container_name: banco
     restart: always
     tty: true
     volumes: 
-      - ./mysql:/var/lib/mysql
+      - ./banco/mysql:/var/lib/mysql
     environment:
       - MYSQL_DATABASE=nodedb
       - MYSQL_ROOT_PASSWORD=root
     networks:
       - node-network
+
 
   nginx:
     build: 

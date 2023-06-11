@@ -2,7 +2,7 @@ const express = require('express')
 const app = express()
 const port = 3000
 const config = {
-    host: 'db', //nome do service e do container no docker compose
+    host: 'banco', //nome do service e do container no docker compose
     user: 'root',
     password: 'root',
     database: 'nodedb'
@@ -10,7 +10,7 @@ const config = {
 const mysql = require('mysql');
 const connection = mysql.createConnection(config);
 
-const sql = `INSERT INTO people(name) values('Giovanna')`
+const sql = `INSERT INTO people(name) values('Pedro')`
 connection.query(sql)
 
 getPeople = function () {
@@ -19,8 +19,8 @@ getPeople = function () {
         connection.query(
             people,
             function (err, rows) {
-                if (rows === undefined) {
-                    reject(new Error("Error rows is undefined"));
+                if (err) {
+                    reject(new Error("ERRO: "+ err));
                 } else {
                     resolve(rows);
                 }
