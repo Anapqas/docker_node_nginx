@@ -7,6 +7,11 @@ services:
     container_name: app
     networks:
       - node-network
+    volumes: 
+      - ./node:/usr/src/app
+    command: >
+      sh -c "npm install &&
+             node index.js"
     tty: true
     ports:
       - "3000:3000"
@@ -42,6 +47,8 @@ services:
       - node-network
     ports: 
       - "8080:80"
+    depends_on:
+      - app
 
 networks:
   node-network:
