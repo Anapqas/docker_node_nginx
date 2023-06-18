@@ -17,6 +17,10 @@ services:
       - "3000:3000"
     depends_on:
       - banco
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost:8080"]
+      timeout: 10s
+      retries: 5
 
 
   banco:
@@ -47,6 +51,7 @@ services:
       - node-network
     ports: 
       - "8080:80"
+    restart: on-failure
     depends_on:
       - app
 

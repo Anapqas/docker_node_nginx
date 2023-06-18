@@ -6,4 +6,6 @@ INSERT INTO people(name) values('Giovanna');
 
 INSERT INTO people(name) values('Ana');
 
-INSERT INTO people(name) values('João');
+INSERT INTO people(name) values('Joana');
+
+INSERT INTO people(name) values('Pedro');

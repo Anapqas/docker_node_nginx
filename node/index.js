@@ -10,8 +10,8 @@ const config = {
 const mysql = require('mysql');
 const connection = mysql.createConnection(config);
 
-const sql = `INSERT INTO people(name) values('Pedro')`
-connection.query(sql)
+//const sql = `INSERT INTO people(name) values('Pedro')`
+//connection.query(sql)
 
 getPeople = function () {
     return new Promise(function (resolve, reject) {
@@ -33,7 +33,7 @@ getPeople = function () {
 getPeople()
     .then(function (results) {
         app.get('/', (req, res) => {
-            html = '<h1>Full Cyclee!</h1>'
+            html = '<h1>Full Cycle Rocks!</h1>'
             html += '<h2>'+results.length+' pessoas</h2>'
             html += "<ul>"
           for (var i in results) html += "<li>" + results[i].name + "</li>";
