@@ -10,9 +10,6 @@ const config = {
 const mysql = require('mysql');
 const connection = mysql.createConnection(config);
 
-//const sql = `INSERT INTO people(name) values('Pedro')`
-//connection.query(sql)
-
 getPeople = function () {
     return new Promise(function (resolve, reject) {
         const people = "select distinct name from people;"
